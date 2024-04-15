@@ -10,6 +10,7 @@ Fare is determined based on the distance covered from source to destination stop
 If d =1000 metres, then fare=5 INR
 (When calculating fare for others, the calculated fare containing any fraction value should be ceiled. For example, for distance 900n when fare initially calculated is 4.5 which must be ceiled to 5)
 Path is circular in function. Value at each index indicates distance till current stop from the previous one. And each index position can be mapped with values at same index in BusStops [] array, which is a string array holding abbreviation of names for all stops as-
+
 “THANERAILWAYSTN” = ”TH”, “GAONDEVI” = “GA”, “ICEFACTROY” = “IC”, “HARINIWASCIRCLE” = “HA”, “TEENHATHNAKA” = “TE”, “LUISWADI” = “LU”, “NITINCOMPANYJUNCTION” = “NI”, “CADBURRYJUNCTION” = “CA”
 
 Given, n=8, where n is number of total BusStops.
@@ -35,6 +36,75 @@ Input should not be case sensitive and output should be in the format   INR
 
 */
 
-public class question13{
+import java.util.Scanner ; 
 
+public class question13{
+    public static void main(String[] args) {
+        
+        int[] Path = {800, 600, 750, 900, 1400, 1200, 1100, 1500} ;
+
+        String BusStops[] = {"TH", "GA", "IC", "HA", "TE", "LV", "NI", "CA"} ; 
+
+        int sourceIndex = -1; 
+        int destinationIndex = -1; 
+
+        Scanner sc = new Scanner(System.in) ; 
+
+        System.out.println("Enter the source stop: ");
+        String source = sc.nextLine() ; 
+
+        System.out.println("Enter the destination stop: ");
+        String destination = sc.nextLine() ; 
+
+        // convert input stops to uppercase 
+
+        source = source.toUpperCase() ; 
+        destination = destination.toUpperCase() ; 
+
+        // find the index of source stop 
+
+        for(int i=0 ; i < BusStops.length ; i++){
+            if(BusStops[i] == source){
+                sourceIndex = i ; 
+                break ; 
+            }
+        }
+
+        // find the index of destination stop 
+
+        for(int i=0 ; i < BusStops.length ; i++){
+            if(BusStops[i] == destination){
+                destinationIndex = i ; 
+                break ; 
+            }
+        }
+
+        if(sourceIndex == -1 || destinationIndex == -1){
+            System.out.println("INVALID INPUT");
+            return ; 
+        }
+
+        // distance from source to destination 
+
+        int distance = 0 ; 
+
+        if(sourceIndex < destinationIndex){
+            for(int i=sourceIndex ; i < destinationIndex ; i++){
+                distance += Path[i] ; 
+            }
+        } else {
+            for(int i= sourceIndex ; i < Path.length ; i++){
+                distance += Path[i] ; 
+            }
+            for(int i= 0 ; i < destinationIndex ; i++){
+                distance += Path[i] ; 
+            }
+        }
+
+        // calculating fare from source to destination 
+
+        double cost = Math.ceil((distance / 1000)*5) ; 
+
+        System.out.println("Fare: " + cost + " INR");
+    }
 }
