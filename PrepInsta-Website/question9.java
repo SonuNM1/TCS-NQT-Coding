@@ -31,8 +31,33 @@ Time Estimated: 25 minutes
 
 */
 
+import java.util.Scanner ; 
+
 public class question9 {
     public static void main(String[] args) {
         
+        Scanner sc = new Scanner(System.in) ; 
+
+        System.out.println("Enter the numeric weight: ");        
+        int weight = sc.nextInt() ; 
+
+        System.out.println(estimateTime(weight)); ; 
+    }
+
+    public static int estimateTime(int weight){
+        int time = 0 ;
+
+        if(weight < 0 || weight > 7000){
+            System.out.println("OVERLOADED! Invalid input");
+        } else {
+            if(weight > 0 && weight <= 2000){
+                time = 25 ; 
+            } else if (weight >= 2001 && weight <= 4000){
+                time = 35 ; 
+            } else {
+                time = 45 ; 
+            }
+        }
+        return time ; 
     }
 }
